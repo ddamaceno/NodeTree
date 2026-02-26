@@ -1,0 +1,27 @@
+{
+  "name": "nodetree",
+  "version": "1.0.0",
+  "description": "> Um agregador de links minimalista e moderno, focado em performance e elegância visual, com funcionalidades de analytics para monitoramento de cliques.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:server": "npm start --prefix server",
+    "start:client": "npm start --prefix client",
+    "dev": "concurrently \"npm run start:server\" \"npm run start:client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddamaceno/NodeTree.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ddamaceno/NodeTree/issues"
+  },
+  "homepage": "https://github.com/ddamaceno/NodeTree#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

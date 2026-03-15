@@ -29,11 +29,11 @@ function App() {
       <div className="container">
         <header className="profile">
           <div className="avatar">
-            <span>DD</span>
+            <span>IN</span>
           </div>
-          <h1>Daniel Damaceno</h1>
-          <p className="bio">Desenvolvedor & Consultor</p>
-          <p className="location">📍 Brasil</p>
+          <h1>Isaac Newton</h1>
+          <p className="bio">Matemático, físico, astrônomo, alquimista, teólogo e autor</p>
+          <p className="location">📍 Londres</p>
         </header>
 
         <section className="links-section">

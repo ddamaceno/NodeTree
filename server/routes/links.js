@@ -86,4 +86,117 @@ router.get('/links', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /links/{id}:
+ *   put:
+ *     summary: Atualizar link
+ *     tags: [Links]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               url:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Link atualizado
+ *       404:
+ *         description: Link não encontrado
+ */
+router.put('/links/reorder', async (req, res) => {
+  const { orderedIds } = req.body;
+
+  if (!Array.isArray(orderedIds)) {
+    return res.status(400).json({ error: 'orderedIds deve ser um array' });
+  }
+
+  try {
+    await prisma.$transaction(
+      orderedIds.map((id, index) =>
+        prisma.link.update({
+          where: { id },
+          data: { order: index }
+        })
+      )
+    );
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Erro ao reordenar links:', error);
+    res.status(500).json({ error: 'Erro ao reordenar links' });
+  }
+});
+
+router.put('/links/:id', async (req, res) => {
+  const { id } = req.params;
+  const { title, url } = req.body;
+
+  if (!title && !url) {
+    return res.status(400).json({ error: 'title ou url são obrigatórios' });
+  }
+
+  try {
+    const link = await prisma.link.update({
+      where: { id },
+      data: {
+        ...(title && { title }),
+        ...(url && { url }),
+      }
+    });
+    res.json(link);
+  } catch (error) {
+    if (error.code === 'P2025') {
+      return res.status(404).json({ error: 'Link não encontrado' });
+    }
+    console.error('Erro ao atualizar link:', error);
+    res.status(500).json({ error: 'Erro ao atualizar link' });
+  }
+});
+
+/**
+ * @swagger
+ * /links/{id}:
+ *   delete:
+ *     summary: Deletar link
+ *     tags: [Links]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       204:
+ *         description: Link deletado
+ *       404:
+ *         description: Link não encontrado
+ */
+router.delete('/links/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await prisma.link.delete({
+      where: { id }
+    });
+    res.status(204).send();
+  } catch (error) {
+    if (error.code === 'P2025') {
+      return res.status(404).json({ error: 'Link não encontrado' });
+    }
+    console.error('Erro ao deletar link:', error);
+    res.status(500).json({ error: 'Erro ao deletar link' });
+  }
+});
+
 module.exports = router;

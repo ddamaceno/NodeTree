@@ -13,6 +13,9 @@ O **NodeTree** é uma ferramenta que permite criar uma página pessoal com todos
 - 👤 Perfil público personalizado (seusite.com/seu-nome)
 - 🔗 Gerenciamento de links (criar, editar, ordenar, excluir)
 - 📊 Sistema de analytics para acompanhar cliques
+- 🌙 Dark mode com persistência de tema
+- 📤 Upload de foto de perfil
+- 🎯 Drag-and-drop para reordenar links
 - API RESTful com Prisma ORM
 
 ---
@@ -26,7 +29,7 @@ O **NodeTree** é uma ferramenta que permite criar uma página pessoal com todos
 | Banco de dados | PostgreSQL |
 | ORM | Prisma 6 |
 | Autenticação | JWT, Bcrypt |
-| Frontend | React + Vite (em desenvolvimento) |
+| Frontend | React + Vite |
 
 ---
 
@@ -99,12 +102,25 @@ cd server
 npm run start
 ```
 
-O servidor estará disponível em: **http://localhost:5000**
+O servidor estará disponível em: **http://localhost:3001**
 
-### Rodar cliente + servidor (quando disponível)
+### Rodar cliente (frontend)
 
 ```bash
+cd client
 npm run dev
+```
+
+O cliente estará disponível em: **http://localhost:5173**
+
+### Rodar cliente + servidor
+
+```bash
+# Terminal 1 - Servidor
+cd server && npm run start
+
+# Terminal 2 - Cliente
+cd client && npm run dev
 ```
 
 ---
@@ -115,7 +131,7 @@ npm run dev
 |----------|------------|---------|
 | `DATABASE_URL` | String de conexão do PostgreSQL | `postgresql://user:pass@host:5432/db` |
 | `JWT_SECRET` | Chave secreta para assinar tokens JWT | `minha-chave-secreta` |
-| `PORT` | Porta do servidor (padrão: 5000) | `5000` |
+| `PORT` | Porta do servidor (padrão: 3001) | `3001` |
 
 ---
 
@@ -128,7 +144,7 @@ NodeTree/
 │   │   └── schema.prisma
 │   ├── .env             # Variáveis de ambiente
 │   └── package.json
-├── client/              # Frontend React (em desenvolvimento)
+├── client/              # Frontend React + Vite
 ├── package.json         # Scripts do projeto
 └── README.md
 ```
@@ -147,6 +163,8 @@ NodeTree/
 | slug | String | URL personalizada do perfil |
 | displayName | String? | Nome exibido no perfil |
 | bio | String? | Biografia do perfil |
+| location | String? | Localização do usuário |
+| avatar | String? | URL da foto de perfil |
 | createdAt | DateTime | Data de criação |
 | updatedAt | DateTime | Data da última atualização |
 
@@ -166,17 +184,21 @@ NodeTree/
 
 ## 📡 Endpoints da API
 
-Base URL: `http://localhost:5000/api`
+Base URL: `http://localhost:3001/api`
 
 | Método | Endpoint | Descrição | Autenticação |
 |--------|----------|-----------|---------------|
 | POST | `/auth/register` | Criar novo usuário | ❌ |
 | POST | `/auth/login` | Fazer login | ❌ |
+| GET | `/users/me` | Ver meu perfil | ✅ |
+| PUT | `/users/me` | Atualizar meu perfil | ✅ |
+| POST | `/upload` | Upload de foto de perfil | ✅ |
 | GET | `/users/:slug` | Ver perfil público | ❌ |
 | GET | `/links` | Listar meus links | ✅ |
 | POST | `/links` | Criar novo link | ✅ |
 | PUT | `/links/:id` | Atualizar link | ✅ |
 | DELETE | `/links/:id` | Excluir link | ✅ |
+| PUT | `/links/reorder` | Reordenar links | ✅ |
 
 > ✅ = requer token JWT no header `Authorization: Bearer <token>`
 

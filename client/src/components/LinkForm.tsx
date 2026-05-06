@@ -10,13 +10,14 @@ interface LinkFormData {
 
 interface LinkFormProps {
   onSuccess?: () => void;
+  userId: string;
 }
 
-export function LinkForm({ onSuccess }: LinkFormProps) {
+export function LinkForm({ onSuccess, userId }: LinkFormProps) {
   const [formData, setFormData] = useState<LinkFormData>({
     title: '',
     url: '',
-    userId: '3487a01f-caca-4a92-a25c-12e00a5cec80',
+    userId: userId,
     order: 0,
   });
   const [loading, setLoading] = useState(false);
@@ -35,7 +36,7 @@ export function LinkForm({ onSuccess }: LinkFormProps) {
       setFormData({ 
         title: '', 
         url: '', 
-        userId: '3487a01f-caca-4a92-a25c-12e00a5cec80', 
+        userId: userId, 
         order: 0 
       });
       onSuccess?.();

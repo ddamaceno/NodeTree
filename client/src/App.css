@@ -505,3 +505,46 @@ body.dark .cancel-btn {
 body.dark .delete-btn {
   background: #c53030;
 }
+
+.links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.link-card {
+  display: block;
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.link-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.dark .link-card {
+  background: #2a2a2a;
+  color: white;
+}
+
+.link-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.link-desc {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0;
+}
+
+.dark .link-desc {
+  color: #aaa;
+}

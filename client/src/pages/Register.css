@@ -1,0 +1,95 @@
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.dark .auth-page {
+  background: #1a1a1a;
+}
+
+.auth-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.dark .auth-container {
+  background: #2a2a2a;
+  color: white;
+}
+
+.auth-container h1 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.dark .form-group input {
+  background: #3a3a3a;
+  border-color: #555;
+  color: white;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem;
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+button[type="submit"]:hover {
+  background: #333;
+}
+
+button[type="submit"]:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #e74c3c;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.auth-container p {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.auth-container a {
+  color: #000;
+  text-decoration: underline;
+}
+
+.dark .auth-container a {
+  color: #fff;
+}

@@ -1,5 +1,6 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
+const { verifyToken } = require('../middleware/auth');
 const router = express.Router();
 const prisma = new PrismaClient();
 
@@ -9,6 +10,8 @@ const prisma = new PrismaClient();
  *   post:
  *     summary: Criar novo link
  *     tags: [Links]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -34,7 +37,7 @@ const prisma = new PrismaClient();
  *       400:
  *         description: Erro de validação
  */
-router.post('/links', async (req, res) => {
+router.post('/links', verifyToken, async (req, res) => {
   const { title, url, userId, order } = req.body;
   
   if (!title || !url || !userId) {
@@ -86,6 +89,56 @@ router.get('/links', async (req, res) => {
   }
 });
 
+// Rota pública - buscar links por slug do usuário
+router.get('/links/public/:slug', async (req, res) => {
+  const { slug } = req.params;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { slug }
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+
+    const links = await prisma.link.findMany({
+      where: { userId: user.id },
+      orderBy: { order: 'asc' }
+    });
+
+    res.json(links);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao buscar links públicos' });
+  }
+});
+
+// Registrar clique em link (analytics)
+router.post('/links/:id/click', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await prisma.$transaction([
+      prisma.link.update({
+        where: { id },
+        data: { clicks: { increment: 1 } }
+      }),
+      prisma.click.create({
+        data: { linkId: id }
+      })
+    ]);
+
+    const link = await prisma.link.findUnique({
+      where: { id }
+    });
+
+    res.json({ url: link.url });
+  } catch (error) {
+    console.error('Erro ao registrar clique:', error);
+    res.status(500).json({ error: 'Erro ao registrar clique' });
+  }
+});
+
 /**
  * @swagger
  * /links/{id}:
@@ -115,7 +168,7 @@ router.get('/links', async (req, res) => {
  *       404:
  *         description: Link não encontrado
  */
-router.put('/links/reorder', async (req, res) => {
+router.put('/links/reorder', verifyToken, async (req, res) => {
   const { orderedIds } = req.body;
 
   if (!Array.isArray(orderedIds)) {
@@ -135,6 +188,49 @@ router.put('/links/reorder', async (req, res) => {
   } catch (error) {
     console.error('Erro ao reordenar links:', error);
     res.status(500).json({ error: 'Erro ao reordenar links' });
+  }
+});
+
+router.put('/links/:id', verifyToken, async (req, res) => {
+  const { id } = req.params;
+  const { title, url } = req.body;
+
+  if (!title && !url) {
+    return res.status(400).json({ error: 'title ou url são obrigatórios' });
+  }
+
+  try {
+    const link = await prisma.link.update({
+      where: { id },
+      data: {
+        ...(title && { title }),
+        ...(url && { url }),
+      }
+    });
+    res.json(link);
+  } catch (error) {
+    if (error.code === 'P2025') {
+      return res.status(404).json({ error: 'Link não encontrado' });
+    }
+    console.error('Erro ao atualizar link:', error);
+    res.status(500).json({ error: 'Erro ao atualizar link' });
+  }
+});
+
+router.delete('/links/:id', verifyToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await prisma.link.delete({
+      where: { id }
+    });
+    res.status(204).send();
+  } catch (error) {
+    if (error.code === 'P2025') {
+      return res.status(404).json({ error: 'Link não encontrado' });
+    }
+    console.error('Erro ao deletar link:', error);
+    res.status(500).json({ error: 'Erro ao deletar link' });
   }
 });
 

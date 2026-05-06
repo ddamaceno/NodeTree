@@ -27,14 +27,16 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['./index.js'],
+  apis: ['./index.js', './routes/*.js'],
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+const authRouter = require('./routes/auth');
 const linksRouter = require('./routes/links');
 const usersRouter = require('./routes/users');
+app.use('/api', authRouter);
 app.use('/api', linksRouter);
 app.use('/api', usersRouter);
 

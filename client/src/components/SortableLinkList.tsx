@@ -82,7 +82,7 @@ export function SortableLinkList({ links, onLinksChange }: SortableLinkListProps
     })
   );
 
-  const handleDragEnd = async (event: DragEndEvent) => {
+  const handleDragEnd = async (event: any) => {
     const { active, over } = event;
 
     if (over && active.id !== over.id) {

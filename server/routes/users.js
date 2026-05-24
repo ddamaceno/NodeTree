@@ -25,22 +25,19 @@ const upload = multer({ storage });
 
 const MOCKED_USER_ID = '3487a01f-caca-4a92-a25c-12e00a5cec80';
 
-// Rota pública - buscar perfil por slug
-router.get('/users/:slug', async (req, res) => {
-  const { slug } = req.params;
+// Rota protegida - buscar meu perfil (DEVE VIR ANTES de /users/:slug)
+router.get('/users/me', verifyToken, async (req, res) => {
+  const userId = req.userId;
+  console.log('[Backend] Buscando usuário com ID:', userId);
 
   try {
     const user = await prisma.user.findUnique({
-      where: { slug }
+      where: { id: userId }
     });
-
-    if (!user) {
-      return res.status(404).json({ error: 'Usuário não encontrado' });
-    }
-
+    console.log('[Backend] Usuário encontrado:', user);
     res.json(user);
   } catch (error) {
-    console.error('Erro ao buscar usuário público:', error);
+    console.error('Erro ao buscar usuário:', error);
     res.status(500).json({ error: 'Erro ao buscar usuário' });
   }
 });
@@ -77,18 +74,22 @@ router.post('/upload', verifyToken, upload.single('file'), async (req, res) => {
   res.json({ url: fileUrl });
 });
 
-router.get('/users/me', verifyToken, async (req, res) => {
-  const userId = req.userId;
-  console.log('[Backend] Buscando usuário com ID:', userId);
+// Rota pública - buscar perfil por slug (DEPOIS das rotas /me)
+router.get('/users/:slug', async (req, res) => {
+  const { slug } = req.params;
 
   try {
     const user = await prisma.user.findUnique({
-      where: { id: userId }
+      where: { slug }
     });
-    console.log('[Backend] Usuário encontrado:', user);
+
+    if (!user) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+
     res.json(user);
   } catch (error) {
-    console.error('Erro ao buscar usuário:', error);
+    console.error('Erro ao buscar usuário público:', error);
     res.status(500).json({ error: 'Erro ao buscar usuário' });
   }
 });

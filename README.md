@@ -210,77 +210,51 @@ Base URL: `http://localhost:3001/api`
 
 O NodeTree utiliza 3 entidades principais no banco de dados PostgreSQL:
 
-```
-┌─────────────────────────┐
-│        USERS            │
-│  (Usuários do sistema)  │
-└──────────┬──────────────┘
-           │
-           │ 1 usuário cria
-           │
-           ▼
-     ┌─────────────┐
-     │ 0..* LINKS  │
-     │ (Links do   │
-     │  usuário)   │
-     └──────┬──────┘
-            │
-            │ 1 link recebe
-            │
-            ▼
-      ┌────────────┐
-      │ 0..* CLICKS│
-      │ (Registros │
-      │  de clique)│
-      └────────────┘
-```
-
-### 🗄️ Schema do Banco de Dados
-
 ```mermaid
-erDiagram
-    USERS ||--o{ LINKS : cria
-    LINKS ||--o{ CLICKS : registra
-    
-    USERS {
-        string id PK
-        string email UK
-        string password
-        string? slug UK
-        string? displayName
-        string? bio
-        string? location
-        string? avatar
-        string theme
-        timestamptz createdAt
-        timestamptz updatedAt
+classDiagram
+    class USERS {
+        +UUID id PK
+        +String email UK
+        +String password
+        +String? slug UK
+        +String? displayName
+        +String? bio
+        +String? location
+        +String? avatar
+        +String? messageToReaders
+        +String theme
+        +DateTime createdAt
+        +DateTime updatedAt
     }
     
-    LINKS {
-        string id PK
-        string title
-        string url
-        string? description
-        int clicks
-        string userId FK
-        timestamptz createdAt
-        timestamptz updatedAt
+    class LINKS {
+        +UUID id PK
+        +String title
+        +String url
+        +String? description
+        +int clicks
+        +UUID userId FK
+        +DateTime createdAt
+        +DateTime updatedAt
     }
     
-    CLICKS {
-        string id PK
-        string linkId FK
-        timestamptz clickedAt
+    class CLICKS {
+        +UUID id PK
+        +UUID linkId FK
+        +DateTime clickedAt
     }
+    
+    USERS "1" -- "0..*" LINKS : cria
+    LINKS "1" -- "0..*" CLICKS : registra
 ```
 
 ### 📝 Descrição das Entidades
 
 | Entidade | Descrição | Exemplo de Uso |
 |----------|-----------|----------------|
-| **USERS** | Usuários cadastrados no sistema | `display_name: "João Silva"`, `slug: "joao"`, `theme: "dark"` |
+| **USERS** | Usuários cadastrados no sistema | `displayName: "João Silva"`, `slug: "joao"`, `theme: "dark"` |
 | **LINKS** | Links adicionados pelo usuário | `title: "Meu LinkedIn"`, `url: "linkedin.com/in/joao"`, `clicks: 42` |
-| **CLICKS** | Registro de cada clique em um link | `clicked_at: "2026-05-24 15:30:00"` |
+| **CLICKS** | Registro de cada clique em um link | `clickedAt: "2026-05-24 15:30:00"` |
 
 ### 🔑 Legenda
 
@@ -290,7 +264,7 @@ erDiagram
 | `FK` | Chave estrangeira (Foreign Key) | `userId` - Referencia tabela USERS |
 | `UK` | Campo único (Unique) | `email` - Não pode repetir |
 | `?` | Campo opcional (Nullable) | `bio` - Pode ser vazio |
-| `||--o{` | Relacionamento 1 para muitos | 1 USER → 0..* LINKS |
+| `1 -- 0..*` | Relacionamento 1 para muitos | 1 USER cria 0 ou mais LINKS |
 
 ---
 

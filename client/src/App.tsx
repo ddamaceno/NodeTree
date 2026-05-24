@@ -79,9 +79,9 @@ function AdminApp() {
               <span>{getInitials(user?.displayName || null)}</span>
             )}
           </div>
-          <h1>{user?.displayName || 'Isaac Newton'}</h1>
-          <p className="bio">{user?.bio || 'Matemático, físico, astrônomo, alquimista, teólogo e autor'}</p>
-          <p className="location">📍 {user?.location || 'Londres'}</p>
+          <h1>{user?.displayName || 'Seu nome'}</h1>
+          <p className="bio">{user?.bio || 'Sua bio'}</p>
+          <p className="location">📍 {user?.location || 'Seu local'}</p>
           <button className="edit-profile-btn" onClick={() => setShowEditProfile(true)}>
             ✏️ Editar Perfil
           </button>
@@ -151,6 +151,13 @@ function PublicProfile() {
   const [user, setUser] = useState<any>(null);
   const [links, setLinks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('theme') === 'dark';
+  });
+
+  useEffect(() => {
+    document.body.classList.toggle('dark', darkMode);
+  }, [darkMode]);
 
   useEffect(() => {
     fetchPublicData();
@@ -183,6 +190,14 @@ function PublicProfile() {
 
   return (
     <div className="page">
+      <button className="theme-toggle" onClick={() => {
+        const newMode = !darkMode;
+        setDarkMode(newMode);
+        localStorage.setItem('theme', newMode ? 'dark' : 'light');
+      }}>
+        {darkMode ? '☀️' : '🌙'}
+      </button>
+
       <div className="container">
         <header className="profile">
           <div className="avatar">
@@ -194,6 +209,7 @@ function PublicProfile() {
           </div>
           <h1>{user?.displayName}</h1>
           <p className="bio">{user?.bio}</p>
+          {user?.location && <p className="location">📍 {user?.location}</p>}
         </header>
 
         <section className="links-section">

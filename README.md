@@ -206,9 +206,36 @@ Base URL: `http://localhost:3001/api`
 
 ## 🏗️ Arquitetura & Diagramas
 
-### Modelo de Dados
+### 📊 Modelo de Dados
 
 O NodeTree utiliza 3 entidades principais no banco de dados PostgreSQL:
+
+```
+┌─────────────────────────┐
+│        USERS            │
+│  (Usuários do sistema)  │
+└──────────┬──────────────┘
+           │
+           │ 1 usuário cria
+           │
+           ▼
+     ┌─────────────┐
+     │ 0..* LINKS  │
+     │ (Links do   │
+     │  usuário)   │
+     └──────┬──────┘
+            │
+            │ 1 link recebe
+            │
+            ▼
+      ┌────────────┐
+      │ 0..* CLICKS│
+      │ (Registros │
+      │  de clique)│
+      └────────────┘
+```
+
+### 🗄️ Schema do Banco de Dados
 
 ```mermaid
 erDiagram
@@ -224,7 +251,6 @@ erDiagram
         string? bio
         string? location
         string? avatar
-        string? messageToReaders
         string theme
         timestamptz createdAt
         timestamptz updatedAt
@@ -235,8 +261,6 @@ erDiagram
         string title
         string url
         string? description
-        string? image
-        int order
         int clicks
         string userId FK
         timestamptz createdAt
@@ -250,12 +274,23 @@ erDiagram
     }
 ```
 
-**Legenda:**
-- `PK` = Chave primária
-- `FK` = Chave estrangeira  
-- `UK` = Único (unique)
-- `?` = Campo opcional (nullable)
-- `timestamptz` = Timestamp com timezone
+### 📝 Descrição das Entidades
+
+| Entidade | Descrição | Exemplo de Uso |
+|----------|-----------|----------------|
+| **USERS** | Usuários cadastrados no sistema | `display_name: "João Silva"`, `slug: "joao"`, `theme: "dark"` |
+| **LINKS** | Links adicionados pelo usuário | `title: "Meu LinkedIn"`, `url: "linkedin.com/in/joao"`, `clicks: 42` |
+| **CLICKS** | Registro de cada clique em um link | `clicked_at: "2026-05-24 15:30:00"` |
+
+### 🔑 Legenda
+
+| Símbolo | Significado | Exemplo |
+|---------|-------------|---------|
+| `PK` | Chave primária (Primary Key) | `id` - Identificador único |
+| `FK` | Chave estrangeira (Foreign Key) | `userId` - Referencia tabela USERS |
+| `UK` | Campo único (Unique) | `email` - Não pode repetir |
+| `?` | Campo opcional (Nullable) | `bio` - Pode ser vazio |
+| `||--o{` | Relacionamento 1 para muitos | 1 USER → 0..* LINKS |
 
 ---
 

@@ -7,7 +7,7 @@ import { SortableLinkList } from './components/SortableLinkList';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import { getLinksByUser, type Link, type User } from './services/api';
+import { getLinksByUser, registerClick, type Link, type User } from './services/api';
 import './App.css';
 
 function AdminApp() {
@@ -228,7 +228,7 @@ function PublicProfile() {
                   className="link-card"
                   onClick={async (e) => {
                     e.preventDefault();
-                    await fetch(`http://localhost:3001/api/links/${link.id}/click`, { method: 'POST' });
+                    await registerClick(link.id);
                     window.open(link.url, '_blank');
                   }}
                 >

@@ -54,6 +54,9 @@ function SortableLink({ link, onEdit, onDelete }: SortableLinkProps) {
       <a href={link.url} target="_blank" rel="noopener noreferrer" className="link-card">
         {link.title}
       </a>
+      <div className="link-analytics">
+        <span title={`${link.clicks || 0} cliques`}>📊 {link.clicks || 0}</span>
+      </div>
       <div className="link-actions">
         <button className="edit-btn" onClick={() => onEdit(link)} title="Editar">
           ✏️

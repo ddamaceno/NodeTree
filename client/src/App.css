@@ -389,6 +389,10 @@ body.dark .btn-cancel {
   border-color: #555;
 }
 
+body.dark .link-analytics {
+  color: #aaa;
+}
+
 .sortable-list {
   display: flex;
   flex-direction: column;
@@ -397,9 +401,14 @@ body.dark .btn-cancel {
 
 .link-item {
   display: grid;
-  grid-template-columns: 60px 1fr 60px;
+  grid-template-columns: 60px 1fr auto 60px;
   align-items: center;
   gap: 0.5rem;
+}
+
+.link-item .link-analytics {
+  opacity: 0.7;
+  transition: opacity 0.2s;
 }
 
 .drag-handle {
@@ -421,6 +430,7 @@ body.dark .btn-cancel {
 
 
 .link-item:hover .drag-handle,
+.link-item:hover .link-analytics,
 .link-item:hover .link-actions {
   opacity: 1;
 }
@@ -439,6 +449,23 @@ body.dark .btn-cancel {
   transition: opacity 0.2s;
   min-width: 60px;
   justify-content: flex-end;
+}
+
+.link-analytics {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #667eea;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.link-analytics:hover {
+  opacity: 1;
 }
 
 .link-actions button {

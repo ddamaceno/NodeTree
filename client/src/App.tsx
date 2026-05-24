@@ -54,6 +54,16 @@ function AdminApp() {
     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
   };
 
+  if (authLoading) {
+    return (
+      <div className="page">
+        <div className="container">
+          <p className="loading">Carregando...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="page">
       <button className="theme-toggle" onClick={() => {
@@ -82,7 +92,7 @@ function AdminApp() {
         </header>
 
         <section className="links-section">
-          {loading || authLoading ? (
+          {loading ? (
             <p className="loading">Carregando...</p>
           ) : links.length === 0 ? (
             <p className="no-links">Nenhum link disponível ainda.</p>

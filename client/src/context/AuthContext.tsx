@@ -30,8 +30,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (token) {
       fetchUserProfile();
-    } else {
-      setLoading(false);
     }
   }, [token]);
 
@@ -56,7 +54,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = (newToken: string, userData: User) => {
     localStorage.setItem('token', newToken);
     setToken(newToken);
-    setUser(userData);
   };
 
   const logout = () => {

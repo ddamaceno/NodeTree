@@ -204,6 +204,61 @@ Base URL: `http://localhost:3001/api`
 
 ---
 
+## 🏗️ Arquitetura & Diagramas
+
+### Modelo de Dados
+
+O NodeTree utiliza 3 entidades principais no banco de dados PostgreSQL:
+
+```mermaid
+erDiagram
+    USERS ||--o{ LINKS : cria
+    LINKS ||--o{ CLICKS : registra
+    
+    USERS {
+        string id PK
+        string email UK
+        string password
+        string? slug UK
+        string? displayName
+        string? bio
+        string? location
+        string? avatar
+        string? messageToReaders
+        string theme
+        timestamptz createdAt
+        timestamptz updatedAt
+    }
+    
+    LINKS {
+        string id PK
+        string title
+        string url
+        string? description
+        string? image
+        int order
+        int clicks
+        string userId FK
+        timestamptz createdAt
+        timestamptz updatedAt
+    }
+    
+    CLICKS {
+        string id PK
+        string linkId FK
+        timestamptz clickedAt
+    }
+```
+
+**Legenda:**
+- `PK` = Chave primária
+- `FK` = Chave estrangeira  
+- `UK` = Único (unique)
+- `?` = Campo opcional (nullable)
+- `timestamptz` = Timestamp com timezone
+
+---
+
 ## 🤝 Como contribuir
 
 1. **Fork** este repositório

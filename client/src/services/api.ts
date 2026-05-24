@@ -128,3 +128,17 @@ export const uploadFile = async (file: File): Promise<{ url: string }> => {
   });
   return response.json();
 };
+
+export const registerClick = async (linkId: string): Promise<void> => {
+  await fetch(`${API_URL}/clicks/${linkId}`, {
+    method: 'POST',
+    headers: getHeaders(),
+  });
+};
+
+export const getLinksAnalytics = async (): Promise<Link[]> => {
+  const response = await fetch(`${API_URL}/links/analytics`, {
+    headers: getHeaders(),
+  });
+  return response.json();
+};

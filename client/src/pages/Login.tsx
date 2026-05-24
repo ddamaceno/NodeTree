@@ -24,12 +24,14 @@ export function Login() {
       });
 
       const data = await response.json();
+      console.log('[Login] Resposta do login:', data);
 
       if (!response.ok) {
         throw new Error(data.error || 'Erro ao fazer login');
       }
 
       login(data.token, data.user);
+      console.log('[Login] Token salvo no localStorage:', localStorage.getItem('token'));
       navigate('/admin');
     } catch (err: any) {
       setError(err.message);

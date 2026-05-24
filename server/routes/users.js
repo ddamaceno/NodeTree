@@ -79,11 +79,13 @@ router.post('/upload', verifyToken, upload.single('file'), async (req, res) => {
 
 router.get('/users/me', verifyToken, async (req, res) => {
   const userId = req.userId;
+  console.log('[Backend] Buscando usuário com ID:', userId);
 
   try {
     const user = await prisma.user.findUnique({
       where: { id: userId }
     });
+    console.log('[Backend] Usuário encontrado:', user);
     res.json(user);
   } catch (error) {
     console.error('Erro ao buscar usuário:', error);

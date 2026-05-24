@@ -34,18 +34,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [token]);
 
   const fetchUserProfile = async () => {
+    console.log('[AuthContext] Buscando perfil do usuário...', token);
     try {
       const response = await fetch('http://localhost:3001/api/users/me', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
+      console.log('[AuthContext] Resposta da API:', response.status);
       if (response.ok) {
         const userData = await response.json();
+        console.log('[AuthContext] Dados do usuário:', userData);
         setUser(userData);
+      } else {
+        const error = await response.json();
+        console.error('[AuthContext] Erro na API:', error);
       }
     } catch (error) {
-      console.error('Erro ao buscar perfil:', error);
+      console.error('[AuthContext] Erro ao buscar perfil:', error);
     } finally {
       setLoading(false);
     }

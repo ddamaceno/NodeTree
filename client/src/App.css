@@ -11,9 +11,22 @@ body {
 }
 
 .page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   min-height: 100vh;
   padding: 2rem 1rem;
-  zoom: 115%;
+}
+
+.page:has(.container) {
+  justify-content: flex-start;
+}
+
+@media (max-width: 480px) {
+  .page {
+    zoom: 100%;
+    padding: 1rem;
+  }
 }
 
 .container {

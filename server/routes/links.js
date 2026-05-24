@@ -141,6 +141,42 @@ router.post('/links/:id/click', async (req, res) => {
 
 /**
  * @swagger
+ * /links/analytics:
+ *   get:
+ *     summary: Buscar analytics de links do usuário
+ *     tags: [Links]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Dados de analytics
+ */
+router.get('/links/analytics', verifyToken, async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    const links = await prisma.link.findMany({
+      where: { userId },
+      select: {
+        id: true,
+        title: true,
+        url: true,
+        clicks: true,
+        createdAt: true,
+        updatedAt: true
+      },
+      orderBy: { clicks: 'desc' }
+    });
+
+    res.json(links);
+  } catch (error) {
+    console.error('Erro ao buscar analytics:', error);
+    res.status(500).json({ error: 'Erro ao buscar analytics' });
+  }
+});
+
+/**
+ * @swagger
  * /links/{id}:
  *   put:
  *     summary: Atualizar link

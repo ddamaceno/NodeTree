@@ -36,9 +36,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 const authRouter = require('./routes/auth');
 const linksRouter = require('./routes/links');
 const usersRouter = require('./routes/users');
+const clicksRouter = require('./routes/clicks');
 app.use('/api', authRouter);
 app.use('/api', linksRouter);
 app.use('/api', usersRouter);
+app.use('/api', clicksRouter);
 
 /**
  * @swagger

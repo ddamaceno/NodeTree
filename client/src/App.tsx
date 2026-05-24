@@ -7,19 +7,18 @@ import { SortableLinkList } from './components/SortableLinkList';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import { getLinksByUser, getCurrentUser, type Link, type User } from './services/api';
+import { getLinksByUser, type Link, type User } from './services/api';
 import './App.css';
 
 function AdminApp() {
   const [links, setLinks] = useState<Link[]>([]);
-  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [showEditProfile, setShowEditProfile] = useState(false);
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem('theme') === 'dark';
   });
-  const { user: authUser } = useAuth();
+  const { user: authUser, loading: authLoading } = useAuth();
 
   useEffect(() => {
     document.body.classList.toggle('dark', darkMode);
@@ -35,24 +34,19 @@ function AdminApp() {
     }
   };
 
-  const fetchUser = async () => {
-    try {
-      const userData = await getCurrentUser();
-      setUser(userData);
-    } catch (error) {
-      console.error('Erro ao carregar usuário:', error);
-    }
-  };
-
   useEffect(() => {
-    if (authUser) {
+    if (authUser && !authLoading) {
       fetchLinks();
-      fetchUser();
     }
-  }, [authUser]);
+  }, [authUser, authLoading]);
 
   const handleSaveProfile = (updatedUser: User) => {
-    setUser(updatedUser);
+    if (authUser) {
+      authUser.displayName = updatedUser.displayName;
+      authUser.bio = updatedUser.bio;
+      authUser.location = updatedUser.location;
+      authUser.avatar = updatedUser.avatar;
+    }
   };
 
   const getInitials = (name: string | null) => {
@@ -73,22 +67,22 @@ function AdminApp() {
       <div className="container">
         <header className="profile">
           <div className="avatar">
-            {user?.avatar ? (
-              <img src={`http://localhost:3001${user.avatar}`} alt="Avatar" />
+            {authUser?.avatar ? (
+              <img src={`http://localhost:3001${authUser.avatar}`} alt="Avatar" />
             ) : (
-              <span>{getInitials(user?.displayName || null)}</span>
+              <span>{getInitials(authUser?.displayName || null)}</span>
             )}
           </div>
-          <h1>{user?.displayName || 'Seu nome'}</h1>
-          <p className="bio">{user?.bio || 'Sua bio'}</p>
-          <p className="location">📍 {user?.location || 'Seu local'}</p>
+          <h1>{authUser?.displayName || 'Seu nome'}</h1>
+          <p className="bio">{authUser?.bio || 'Sua bio'}</p>
+          <p className="location">📍 {authUser?.location || 'Seu local'}</p>
           <button className="edit-profile-btn" onClick={() => setShowEditProfile(true)}>
             ✏️ Editar Perfil
           </button>
         </header>
 
         <section className="links-section">
-          {loading ? (
+          {loading || authLoading ? (
             <p className="loading">Carregando...</p>
           ) : links.length === 0 ? (
             <p className="no-links">Nenhum link disponível ainda.</p>

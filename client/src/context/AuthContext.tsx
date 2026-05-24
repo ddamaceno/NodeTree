@@ -4,11 +4,17 @@ interface User {
   id: string;
   email: string;
   slug: string;
+  displayName?: string | null;
+  bio?: string | null;
+  location?: string | null;
+  avatar?: string | null;
+  theme?: string;
 }
 
 interface AuthContextType {
   user: User | null;
   token: string | null;
+  loading: boolean;
   login: (token: string, user: User) => void;
   logout: () => void;
   isAuthenticated: boolean;
@@ -19,10 +25,13 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (token) {
       fetchUserProfile();
+    } else {
+      setLoading(false);
     }
   }, [token]);
 
@@ -39,6 +48,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     } catch (error) {
       console.error('Erro ao buscar perfil:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,6 +69,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     <AuthContext.Provider value={{
       user,
       token,
+      loading,
       login,
       logout,
       isAuthenticated: !!token

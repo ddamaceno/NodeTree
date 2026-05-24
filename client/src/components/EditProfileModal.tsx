@@ -73,6 +73,11 @@ export function EditProfileModal({ isOpen, onClose, onSave }: EditProfileModalPr
     }
   };
 
+  const getInitials = (name: string | null) => {
+    if (!name) return '?';
+    return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -93,7 +98,7 @@ export function EditProfileModal({ isOpen, onClose, onSave }: EditProfileModalPr
                 {avatar ? (
                   <img src={`http://localhost:3001${avatar}`} alt="Avatar" />
                 ) : (
-                  <div className="avatar-placeholder">IN</div>
+                  <div className="avatar-placeholder">{getInitials(displayName)}</div>
                 )}
               </div>
               <input

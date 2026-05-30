@@ -1,4 +1,4 @@
-# Diagrama de classes TypeScript
+# Diagrama de classes
 
 ```mermaid
 classDiagram

@@ -1,163 +1,121 @@
-<mxGraphModel dx="1408" dy="773" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" background="#ffffff" math="0" shadow="0">
+<mxGraphModel dx="1408" dy="773" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
   <root>
     <mxCell id="0"/>
     <mxCell id="1" parent="0"/>
 
-    <!-- Database Layer -->
-    <mxCell id="db-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e8f4f8;strokeColor=#000000;fontColor=#000000;" vertex="1" parent="1">
-      <mxGeometry x="40" y="60" width="1120" height="300" as="geometry"/>
-    </mxCell>
-    <mxCell id="db-title" value="&lt;b&gt;Camada de Dados (Prisma / PostgreSQL)&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-      <mxGeometry x="40" y="66" width="1120" height="26" as="geometry"/>
+    <!-- Title -->
+    <mxCell id="title" value="&lt;b&gt;Diagrama de Classes - NodeTree&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=18;fontColor=#1a1a1a;" vertex="1" parent="1">
+      <mxGeometry x="350" y="10" width="400" height="30" as="geometry"/>
     </mxCell>
 
-    <!-- User Entity -->
-    <mxCell id="user-entity" value="&lt;b&gt;User&lt;/b&gt;&lt;hr&gt;&lt;font color=&quot;#666666&quot;&gt;@map(&amp;quot;users&amp;quot;)&lt;/font&gt;&lt;hr&gt;&lt;font color=&quot;#2b7a2b&quot;&gt;+ id: UUID&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#2b7a2b&quot;&gt;+ email: String&lt;/font&gt;&lt;br&gt;+ password: String&lt;br&gt;&lt;font color=&quot;#2b7a2b&quot;&gt;+ slug: String?&lt;/font&gt;&lt;br&gt;+ displayName: String?&lt;br&gt;+ bio: String?&lt;br&gt;+ location: String?&lt;br&gt;+ avatar: String?&lt;br&gt;+ messageToReaders: String?&lt;br&gt;+ theme: String&lt;br&gt;+ createdAt: DateTime&lt;br&gt;+ updatedAt: DateTime&lt;br&gt;&lt;hr&gt;&lt;font color=&quot;#5555cc&quot;&gt;+ links: Link[]&lt;/font&gt;" style="html=1;strokeColor=#000000;fillColor=#ffffff;fontColor=#000000;align=left;spacingLeft=8;fontSize=11;rounded=1;arcSize=8;" vertex="1" parent="1">
-      <mxGeometry x="80" y="110" width="300" height="220" as="geometry"/>
+    <!-- ============================================================ -->
+    <!-- Classe: User                                                  -->
+    <!-- ============================================================ -->
+    <mxCell id="user-box" value="&lt;b&gt;&amp;lt;&amp;lt;Entity&amp;gt;&amp;gt;&lt;/b&gt;&lt;hr&gt;&lt;b&gt;User&lt;/b&gt;&lt;hr&gt;&lt;i&gt;+ id: UUID&lt;/i&gt;&lt;br&gt;&lt;i&gt;+ email: String&lt;/i&gt;&lt;br&gt;+ password: String&lt;br&gt;&lt;i&gt;+ slug: String[0..1]&lt;/i&gt;&lt;br&gt;+ displayName: String[0..1]&lt;br&gt;+ bio: String[0..1]&lt;br&gt;+ location: String[0..1]&lt;br&gt;+ avatar: String[0..1]&lt;br&gt;+ messageToReaders: String[0..1]&lt;br&gt;+ theme: String&lt;br&gt;+ createdAt: DateTime&lt;br&gt;+ updatedAt: DateTime&lt;hr&gt;+ getLinks(): Link[]" style="html=1;strokeColor=#1a1a1a;fillColor=#ffffff;fontColor=#1a1a1a;align=left;spacingLeft=10;fontSize=11;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="1">
+      <mxGeometry x="60" y="80" width="280" height="210" as="geometry"/>
     </mxCell>
 
-    <!-- Link Entity -->
-    <mxCell id="link-entity" value="&lt;b&gt;Link&lt;/b&gt;&lt;hr&gt;&lt;font color=&quot;#666666&quot;&gt;@map(&amp;quot;links&amp;quot;)&lt;/font&gt;&lt;hr&gt;&lt;font color=&quot;#2b7a2b&quot;&gt;+ id: UUID&lt;/font&gt;&lt;br&gt;+ title: String&lt;br&gt;+ url: String&lt;br&gt;+ description: String?&lt;br&gt;+ image: String?&lt;br&gt;+ order: Int&lt;br&gt;+ clicks: Int&lt;br&gt;&lt;font color=&quot;#cc3333&quot;&gt;+ userId: UUID&lt;/font&gt;&lt;br&gt;+ createdAt: DateTime&lt;br&gt;+ updatedAt: DateTime&lt;br&gt;&lt;hr&gt;&lt;font color=&quot;#5555cc&quot;&gt;+ user: User&lt;br&gt;+ clickLogs: Click[]&lt;/font&gt;" style="html=1;strokeColor=#000000;fillColor=#ffffff;fontColor=#000000;align=left;spacingLeft=8;fontSize=11;rounded=1;arcSize=8;" vertex="1" parent="1">
-      <mxGeometry x="450" y="110" width="300" height="220" as="geometry"/>
+    <!-- ============================================================ -->
+    <!-- Classe: Link                                                  -->
+    <!-- ============================================================ -->
+    <mxCell id="link-box" value="&lt;b&gt;&amp;lt;&amp;lt;Entity&amp;gt;&amp;gt;&lt;/b&gt;&lt;hr&gt;&lt;b&gt;Link&lt;/b&gt;&lt;hr&gt;&lt;i&gt;+ id: UUID&lt;/i&gt;&lt;br&gt;+ title: String&lt;br&gt;+ url: String&lt;br&gt;+ description: String[0..1]&lt;br&gt;+ image: String[0..1]&lt;br&gt;+ order: Integer&lt;br&gt;+ clicks: Integer&lt;br&gt;+ userId: UUID&lt;br&gt;+ createdAt: DateTime&lt;br&gt;+ updatedAt: DateTime&lt;hr&gt;+ getUser(): User&lt;br&gt;+ getClickLogs(): Click[]" style="html=1;strokeColor=#1a1a1a;fillColor=#ffffff;fontColor=#1a1a1a;align=left;spacingLeft=10;fontSize=11;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="1">
+      <mxGeometry x="430" y="80" width="280" height="210" as="geometry"/>
     </mxCell>
 
-    <!-- Click Entity -->
-    <mxCell id="click-entity" value="&lt;b&gt;Click&lt;/b&gt;&lt;hr&gt;&lt;font color=&quot;#666666&quot;&gt;@map(&amp;quot;clicks&amp;quot;)&lt;/font&gt;&lt;hr&gt;&lt;font color=&quot;#2b7a2b&quot;&gt;+ id: UUID&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#cc3333&quot;&gt;+ linkId: UUID&lt;/font&gt;&lt;br&gt;+ clickedAt: DateTime&lt;br&gt;&lt;hr&gt;&lt;font color=&quot;#5555cc&quot;&gt;+ link: Link&lt;/font&gt;" style="html=1;strokeColor=#000000;fillColor=#ffffff;fontColor=#000000;align=left;spacingLeft=8;fontSize=11;rounded=1;arcSize=8;" vertex="1" parent="1">
-      <mxGeometry x="820" y="110" width="300" height="130" as="geometry"/>
+    <!-- ============================================================ -->
+    <!-- Classe: Click                                                 -->
+    <!-- ============================================================ -->
+    <mxCell id="click-box" value="&lt;b&gt;&amp;lt;&amp;lt;Entity&amp;gt;&amp;gt;&lt;/b&gt;&lt;hr&gt;&lt;b&gt;Click&lt;/b&gt;&lt;hr&gt;&lt;i&gt;+ id: UUID&lt;/i&gt;&lt;br&gt;+ linkId: UUID&lt;br&gt;+ clickedAt: DateTime&lt;hr&gt;+ getLink(): Link" style="html=1;strokeColor=#1a1a1a;fillColor=#ffffff;fontColor=#1a1a1a;align=left;spacingLeft=10;fontSize=11;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="1">
+      <mxGeometry x="800" y="80" width="240" height="130" as="geometry"/>
     </mxCell>
 
-    <!-- DB Relationships -->
-    <mxCell id="rel-user-link" value="1" style="endArrow=none;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1" source="user-entity" target="link-entity">
+    <!-- ============================================================ -->
+    <!-- Relacionamento: User 1 ---<>--- 0..* Link                     -->
+    <!-- ============================================================ -->
+    <mxCell id="rel-user-link" value="" style="endArrow=open;endSize=10;startArrow=diamondThin;startSize=16;startFill=0;edgeStyle=orthogonalEdgeStyle;strokeColor=#1a1a1a;strokeWidth=1;" edge="1" parent="1" source="user-box" target="link-box">
       <mxGeometry x="-1" relative="1" as="geometry">
-        <mxPoint x="380" y="250" as="sourcePoint"/>
-        <mxPoint x="450" y="250" as="targetPoint"/>
+        <mxPoint x="340" y="200" as="sourcePoint"/>
+        <mxPoint x="430" y="200" as="targetPoint"/>
       </mxGeometry>
     </mxCell>
-    <mxCell id="rel-user-link-label" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="rel-user-link">
-      <mxGeometry x="-0.2" y="2" relative="1" as="geometry">
+    <mxCell id="rel-user-link-card1" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" vertex="1" connectable="0" parent="rel-user-link">
+      <mxGeometry x="-0.4" y="-2" relative="1" as="geometry">
         <mxPoint as="offset"/>
       </mxGeometry>
     </mxCell>
-    <mxCell id="rel-link-click" value="1" style="endArrow=none;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1" source="link-entity" target="click-entity">
-      <mxGeometry x="-1" relative="1" as="geometry">
-        <mxPoint x="750" y="250" as="sourcePoint"/>
-        <mxPoint x="820" y="250" as="targetPoint"/>
+    <mxCell id="rel-user-link-card2" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" vertex="1" connectable="0" parent="rel-user-link">
+      <mxGeometry x="0.6" y="-2" relative="1" as="geometry">
+        <mxPoint as="offset"/>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="rel-user-link-role" value="possui" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#444444;" vertex="1" connectable="0" parent="rel-user-link">
+      <mxGeometry x="0.5" y="-2" relative="1" as="geometry">
+        <mxPoint as="offset"/>
       </mxGeometry>
     </mxCell>
 
-    <!-- Frontend Layer -->
-    <mxCell id="fe-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0e6f6;strokeColor=#000000;fontColor=#000000;" vertex="1" parent="1">
-      <mxGeometry x="40" y="400" width="1120" height="240" as="geometry"/>
-    </mxCell>
-    <mxCell id="fe-title" value="&lt;b&gt;Camada de Frontend (React + TypeScript)&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-      <mxGeometry x="40" y="406" width="1120" height="26" as="geometry"/>
-    </mxCell>
-
-    <!-- AuthContext -->
-    <mxCell id="auth-context" value="&lt;b&gt;AuthContext&lt;/b&gt;&lt;hr&gt;+ user: User | null&lt;br&gt;+ token: string | null&lt;br&gt;+ loading: boolean&lt;br&gt;+ isAuthenticated: boolean&lt;hr&gt;&lt;font color=&quot;#995500&quot;&gt;+ login(token, user)&lt;br&gt;+ logout()&lt;/font&gt;" style="html=1;strokeColor=#000000;fillColor=#ffffff;fontColor=#000000;align=left;spacingLeft=8;fontSize=11;rounded=1;arcSize=8;" vertex="1" parent="1">
-      <mxGeometry x="80" y="450" width="200" height="140" as="geometry"/>
-    </mxCell>
-
-    <!-- APIService -->
-    <mxCell id="api-service" value="&lt;b&gt;APIService&lt;/b&gt;&lt;hr&gt;&lt;font color=&quot;#995500&quot;&gt;+ createLink(data)&lt;br&gt;+ getLinksByUser(id)&lt;br&gt;+ updateLink(id, data)&lt;br&gt;+ deleteLink(id)&lt;br&gt;+ reorderLinks(ids)&lt;br&gt;+ getCurrentUser()&lt;br&gt;+ updateCurrentUser(data)&lt;br&gt;+ uploadFile(file)&lt;br&gt;+ registerClick(linkId)&lt;br&gt;+ getLinksAnalytics()&lt;/font&gt;" style="html=1;strokeColor=#000000;fillColor=#ffffff;fontColor=#000000;align=left;spacingLeft=8;fontSize=11;rounded=1;arcSize=8;" vertex="1" parent="1">
-      <mxGeometry x="340" y="450" width="200" height="160" as="geometry"/>
-    </mxCell>
-
-    <!-- Components -->
-    <mxCell id="components-box" value="&lt;b&gt;Componentes React&lt;/b&gt;" style="html=1;strokeColor=#000000;fillColor=#ffffff;fontColor=#000000;align=center;fontSize=11;rounded=1;arcSize=8;" vertex="1" parent="1">
-      <mxGeometry x="600" y="450" width="500" height="170" as="geometry"/>
-    </mxCell>
-
-    <mxCell id="comp-app" value="&lt;b&gt;App&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;10&quot;&gt;Router (/)&lt;/font&gt;" style="html=1;strokeColor=#000000;fillColor=#fcfcfc;fontColor=#000000;align=center;fontSize=10;rounded=1;" vertex="1" parent="1">
-      <mxGeometry x="620" y="480" width="100" height="40" as="geometry"/>
-    </mxCell>
-
-    <mxCell id="comp-admin" value="&lt;b&gt;AdminApp&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;10&quot;&gt;/admin (protegido)&lt;/font&gt;" style="html=1;strokeColor=#000000;fillColor=#fcfcfc;fontColor=#000000;align=center;fontSize=10;rounded=1;" vertex="1" parent="1">
-      <mxGeometry x="740" y="480" width="110" height="40" as="geometry"/>
-    </mxCell>
-
-    <mxCell id="comp-public" value="&lt;b&gt;PublicProfile&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;10&quot;&gt;/:slug (público)&lt;/font&gt;" style="html=1;strokeColor=#000000;fillColor=#fcfcfc;fontColor=#000000;align=center;fontSize=10;rounded=1;" vertex="1" parent="1">
-      <mxGeometry x="620" y="535" width="100" height="40" as="geometry"/>
-    </mxCell>
-
-    <mxCell id="comp-login" value="&lt;b&gt;Login&lt;/b&gt;" style="html=1;strokeColor=#000000;fillColor=#fcfcfc;fontColor=#000000;align=center;fontSize=10;rounded=1;" vertex="1" parent="1">
-      <mxGeometry x="740" y="535" width="110" height="40" as="geometry"/>
-    </mxCell>
-
-    <mxCell id="comp-register" value="&lt;b&gt;Register&lt;/b&gt;" style="html=1;strokeColor=#000000;fillColor=#fcfcfc;fontColor=#000000;align=center;fontSize=10;rounded=1;" vertex="1" parent="1">
-      <mxGeometry x="865" y="535" width="100" height="40" as="geometry"/>
-    </mxCell>
-
-    <mxCell id="comp-sortable" value="&lt;b&gt;SortableLinkList&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;10&quot;&gt;@dnd-kit&lt;/font&gt;" style="html=1;strokeColor=#000000;fillColor=#fcfcfc;fontColor=#000000;align=center;fontSize=10;rounded=1;" vertex="1" parent="1">
-      <mxGeometry x="865" y="480" width="100" height="40" as="geometry"/>
-    </mxCell>
-
-    <mxCell id="comp-protected" value="&lt;b&gt;ProtectedRoute&lt;/b&gt;" style="html=1;strokeColor=#000000;fillColor=#fcfcfc;fontColor=#000000;align=center;fontSize=10;rounded=1;" vertex="1" parent="1">
-      <mxGeometry x="980" y="480" width="100" height="40" as="geometry"/>
-    </mxCell>
-
-    <mxCell id="comp-modals" value="&lt;b&gt;Modais:&lt;/b&gt; LinkForm, EditLinkModal,&lt;br&gt;DeleteConfirmModal, EditProfileModal" style="html=1;strokeColor=#000000;fillColor=#fcfcfc;fontColor=#000000;align=center;fontSize=10;rounded=1;" vertex="1" parent="1">
-      <mxGeometry x="980" y="535" width="100" height="60" as="geometry"/>
-    </mxCell>
-
-    <!-- Backend Layer -->
-    <mxCell id="be-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f6f0e0;strokeColor=#000000;fontColor=#000000;" vertex="1" parent="1">
-      <mxGeometry x="40" y="680" width="1120" height="190" as="geometry"/>
-    </mxCell>
-    <mxCell id="be-title" value="&lt;b&gt;Camada de Backend (Express + Prisma Client)&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
-      <mxGeometry x="40" y="686" width="1120" height="26" as="geometry"/>
-    </mxCell>
-
-    <mxCell id="auth-router" value="&lt;b&gt;AuthRouter&lt;/b&gt;&lt;hr&gt;POST /auth/register&lt;br&gt;POST /auth/login&lt;br&gt;POST /auth/logout" style="html=1;strokeColor=#000000;fillColor=#ffffff;fontColor=#000000;align=left;spacingLeft=8;fontSize=10;rounded=1;arcSize=8;" vertex="1" parent="1">
-      <mxGeometry x="80" y="730" width="180" height="90" as="geometry"/>
-    </mxCell>
-
-    <mxCell id="users-router" value="&lt;b&gt;UsersRouter&lt;/b&gt;&lt;hr&gt;GET /users/me&lt;br&gt;PUT /users/me&lt;br&gt;GET /users/:slug&lt;br&gt;POST /upload" style="html=1;strokeColor=#000000;fillColor=#ffffff;fontColor=#000000;align=left;spacingLeft=8;fontSize=10;rounded=1;arcSize=8;" vertex="1" parent="1">
-      <mxGeometry x="300" y="730" width="180" height="90" as="geometry"/>
-    </mxCell>
-
-    <mxCell id="links-router" value="&lt;b&gt;LinksRouter&lt;/b&gt;&lt;hr&gt;GET /links?userId=&lt;br&gt;POST /links&lt;br&gt;PUT /links/:id&lt;br&gt;DELETE /links/:id&lt;br&gt;PUT /links/reorder&lt;br&gt;GET /links/public/:slug&lt;br&gt;GET /links/analytics" style="html=1;strokeColor=#000000;fillColor=#ffffff;fontColor=#000000;align=left;spacingLeft=8;fontSize=10;rounded=1;arcSize=8;" vertex="1" parent="1">
-      <mxGeometry x="520" y="730" width="180" height="90" as="geometry"/>
-    </mxCell>
-
-    <mxCell id="clicks-router" value="&lt;b&gt;ClicksRouter&lt;/b&gt;&lt;hr&gt;POST /clicks/:linkId&lt;br&gt;GET /users/:slug" style="html=1;strokeColor=#000000;fillColor=#ffffff;fontColor=#000000;align=left;spacingLeft=8;fontSize=10;rounded=1;arcSize=8;" vertex="1" parent="1">
-      <mxGeometry x="740" y="730" width="180" height="70" as="geometry"/>
-    </mxCell>
-
-    <mxCell id="verify-token" value="&lt;b&gt;Auth Middleware&lt;/b&gt;&lt;hr&gt;verifyToken(req, res, next)&lt;br&gt;&lt;font size=&quot;9&quot;&gt;jwt.verify → req.userId&lt;/font&gt;" style="html=1;strokeColor=#000000;fillColor=#ffffff;fontColor=#000000;align=left;spacingLeft=8;fontSize=10;rounded=1;arcSize=8;" vertex="1" parent="1">
-      <mxGeometry x="960" y="730" width="160" height="70" as="geometry"/>
-    </mxCell>
-
-    <!-- Backend Arrows -->
-    <mxCell id="be-arrow-auth" value="" style="endArrow=block;html=1;endSize=10;startArrow=none;edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1" source="verify-token" target="auth-router">
+    <!-- ============================================================ -->
+    <!-- Relacionamento: Link 1 ---<>--- 0..* Click                    -->
+    <!-- ============================================================ -->
+    <mxCell id="rel-link-click" value="" style="endArrow=open;endSize=10;startArrow=diamondThin;startSize=16;startFill=0;edgeStyle=orthogonalEdgeStyle;strokeColor=#1a1a1a;strokeWidth=1;" edge="1" parent="1" source="link-box" target="click-box">
       <mxGeometry x="-1" relative="1" as="geometry">
-        <mxPoint x="1040" y="770" as="sourcePoint"/>
-        <mxPoint x="260" y="770" as="targetPoint"/>
+        <mxPoint x="710" y="200" as="sourcePoint"/>
+        <mxPoint x="800" y="200" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="rel-link-click-card1" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" vertex="1" connectable="0" parent="rel-link-click">
+      <mxGeometry x="-0.3" y="-2" relative="1" as="geometry">
+        <mxPoint as="offset"/>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="rel-link-click-card2" value="0..*" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;" vertex="1" connectable="0" parent="rel-link-click">
+      <mxGeometry x="0.7" y="-2" relative="1" as="geometry">
+        <mxPoint as="offset"/>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="rel-link-click-role" value="registra" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#444444;" vertex="1" connectable="0" parent="rel-link-click">
+      <mxGeometry x="0.5" y="-2" relative="1" as="geometry">
+        <mxPoint as="offset"/>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- ============================================================ -->
+    <!-- Pacote: Modelos da API (DTOs)                                -->
+    <!-- ============================================================ -->
+    <mxCell id="dto-package" value="&lt;b&gt;Modelos da API (Data Transfer Objects)&lt;/b&gt;" style="swimlane;html=1;childLayout=stackLayout;resizeParent=1;resizeParentMax=0;startSize=24;strokeColor=#1a1a1a;fillColor=#f8f8f8;fontColor=#1a1a1a;fontSize=12;rounded=0;" vertex="1" parent="1">
+      <mxGeometry x="60" y="360" width="980" height="200" as="geometry"/>
+    </mxCell>
+
+    <!-- LinkData -->
+    <mxCell id="linkdata-box" value="&lt;b&gt;LinkData&lt;/b&gt;&lt;hr&gt;+ title: String&lt;br&gt;+ url: String&lt;br&gt;+ userId: String&lt;br&gt;+ order: Integer[0..1]&lt;br&gt;+ description: String[0..1]" style="html=1;strokeColor=#1a1a1a;fillColor=#ffffff;fontColor=#1a1a1a;align=left;spacingLeft=8;fontSize=11;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="dto-package">
+      <mxGeometry x="40" y="40" width="200" height="110" as="geometry"/>
+    </mxCell>
+
+    <!-- UpdateLinkData -->
+    <mxCell id="updatelink-box" value="&lt;b&gt;UpdateLinkData&lt;/b&gt;&lt;hr&gt;+ title: String[0..1]&lt;br&gt;+ url: String[0..1]&lt;br&gt;+ description: String[0..1]" style="html=1;strokeColor=#1a1a1a;fillColor=#ffffff;fontColor=#1a1a1a;align=left;spacingLeft=8;fontSize=11;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="dto-package">
+      <mxGeometry x="280" y="40" width="200" height="80" as="geometry"/>
+    </mxCell>
+
+    <!-- UpdateUserData -->
+    <mxCell id="updateuser-box" value="&lt;b&gt;UpdateUserData&lt;/b&gt;&lt;hr&gt;+ displayName: String[0..1]&lt;br&gt;+ bio: String[0..1]&lt;br&gt;+ location: String[0..1]&lt;br&gt;+ avatar: String[0..1]&lt;br&gt;+ theme: String[0..1]&lt;br&gt;+ messageToReaders: String[0..1]" style="html=1;strokeColor=#1a1a1a;fillColor=#ffffff;fontColor=#1a1a1a;align=left;spacingLeft=8;fontSize=11;rounded=0;shadow=0;strokeWidth=1;" vertex="1" parent="dto-package">
+      <mxGeometry x="520" y="40" width="200" height="120" as="geometry"/>
+    </mxCell>
+
+    <!-- Dependências: DTOs usam entidades -->
+    <mxCell id="dep-linkdata" value="&amp;lt;&amp;lt;create&amp;gt;&amp;gt;" style="endArrow=open;endSize=10;startArrow=none;dashed=1;strokeColor=#1a1a1a;strokeWidth=1;fontSize=10;fontColor=#444444;" edge="1" parent="dto-package" target="link-box">
+      <mxGeometry x="-1" relative="1" as="geometry">
+        <mxPoint x="140" y="200" as="sourcePoint"/>
+        <mxPoint x="580" y="200" as="targetPoint"/>
         <Array as="points">
-          <mxPoint x="1040" y="810"/>
-          <mxPoint x="170" y="810"/>
+          <mxPoint x="140" y="240"/>
+          <mxPoint x="580" y="240"/>
         </Array>
-      </mxGeometry>
-    </mxCell>
-    <mxCell id="be-arrow-users" value="" style="endArrow=block;html=1;endSize=10;startArrow=none;edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1">
-      <mxGeometry x="-1" relative="1" as="geometry">
-        <mxPoint x="1040" y="770" as="sourcePoint"/>
-        <mxPoint x="390" y="770" as="targetPoint"/>
-        <Array as="points">
-          <mxPoint x="1040" y="810"/>
-        </Array>
-      </mxGeometry>
-    </mxCell>
-    <mxCell id="be-arrow-links" value="usam" style="endArrow=block;html=1;endSize=10;startArrow=none;edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1">
-      <mxGeometry x="-1" relative="1" as="geometry">
-        <mxPoint x="1040" y="755" as="sourcePoint"/>
-        <mxPoint x="610" y="755" as="targetPoint"/>
       </mxGeometry>
     </mxCell>
 
     <!-- Legend -->
-    <mxCell id="legend" value="&lt;b&gt;Legenda&lt;/b&gt;&lt;hr&gt;&lt;font color=&quot;#2b7a2b&quot;&gt;Verde:&lt;/font&gt; Primary Key / Unique Key&lt;br&gt;&lt;font color=&quot;#cc3333&quot;&gt;Vermelho:&lt;/font&gt; Foreign Key&lt;br&gt;&lt;font color=&quot;#5555cc&quot;&gt;Azul:&lt;/font&gt; Relacionamento (navegação Prisma)&lt;br&gt;Losango: 1 para muitos (1 —&amp;lt; *)" style="html=1;strokeColor=#000000;fillColor=#ffffff;fontColor=#000000;align=left;spacingLeft=10;fontSize=10;" vertex="1" parent="1">
-      <mxGeometry x="80" y="40" width="300" height="100" as="geometry"/>
+    <mxCell id="legend-box" value="&lt;b&gt;Legenda&lt;/b&gt;&lt;hr&gt;&lt;b&gt;User&lt;/b&gt;, &lt;b&gt;Link&lt;/b&gt;, &lt;b&gt;Click&lt;/b&gt;: entidades do banco (Prisma)&lt;br&gt;&lt;b&gt;LinkData&lt;/b&gt;, &lt;b&gt;UpdateLinkData&lt;/b&gt;, &lt;b&gt;UpdateUserData&lt;/b&gt;: DTOs da API (frontend)&lt;br&gt;&lt;hr&gt;&lt;i&gt;id: UUID&lt;/i&gt; = Primary Key | &lt;i&gt;slug: String[0..1]&lt;/i&gt; = opcional | &lt;i&gt;&amp;lt;&amp;lt;Entity&amp;gt;&amp;gt;&lt;/i&gt; = entidade persistente&lt;br&gt;◇ Losango não preenchido = agregação (1 para muitos)&lt;br&gt;⟶ Seta vazada = dependência &amp;lt;&amp;lt;create&amp;gt;&amp;gt;" style="html=1;strokeColor=#1a1a1a;fillColor=#f8f8f8;fontColor=#1a1a1a;align=left;spacingLeft=10;fontSize=10;rounded=0;shadow=0;" vertex="1" parent="1">
+      <mxGeometry x="60" y="620" width="500" height="140" as="geometry"/>
     </mxCell>
   </root>
 </mxGraphModel>

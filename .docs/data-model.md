@@ -10,14 +10,151 @@
 | ID primário | UUID nativo via `gen_random_uuid()` |
 | Pool de conexões | Gerenciado pelo Prisma Client via `DATABASE_URL` |
 
-## Diagramas
+## Diagrama de classes
 
-Os diagramas UML estão disponíveis como arquivos editáveis do Draw.io:
+```mermaid
+---
+title: Diagrama de Classes — NodeTree
+---
+classDiagram
+    class User {
+        <<Entity>>
+        + id: UUID
+        + email: String
+        + password: String
+        + slug: String[0..1]
+        + displayName: String[0..1]
+        + bio: String[0..1]
+        + location: String[0..1]
+        + avatar: String[0..1]
+        + messageToReaders: String[0..1]
+        + theme: String
+        + createdAt: DateTime
+        + updatedAt: DateTime
+    }
 
-| Diagrama | Arquivo |
+    class Link {
+        <<Entity>>
+        + id: UUID
+        + title: String
+        + url: String
+        + description: String[0..1]
+        + image: String[0..1]
+        + order: Integer
+        + clicks: Integer
+        + userId: UUID
+        + createdAt: DateTime
+        + updatedAt: DateTime
+    }
+
+    class Click {
+        <<Entity>>
+        + id: UUID
+        + linkId: UUID
+        + clickedAt: DateTime
+    }
+
+    User "1" --> "0..*" Link : possui
+    Link "1" --> "0..*" Click : registra
+```
+
+### Notações
+
+- `+` — visibilidade pública (UML)
+- `UUID`, `String`, `Integer`, `DateTime` — tipos dos atributos
+- `[0..1]` — atributo opcional (nullable)
+- `1 → 0..*` — relação um para muitos (agregação)
+- `<<Entity>>` — entidade persistente no banco de dados
+
+---
+
+## Diagrama de casos de uso
+
+```mermaid
+---
+title: Diagrama de Casos de Uso — NodeTree
+---
+flowchart LR
+    V([Visitante])
+    UA([Usuário<br>Autenticado])
+
+    subgraph SISTEMA[NodeTree]
+        direction TB
+
+        subgraph VISITA[" "]
+            direction TB
+            UC01("Visualizar perfil público")
+            UC02("Clicar em link")
+        end
+
+        subgraph AUTENTICACAO[" "]
+            direction TB
+            UC03("Registrar conta")
+            UC04("Fazer login")
+            UC05("Fazer logout")
+        end
+
+        subgraph GERENCIAMENTO[" "]
+            direction TB
+            UC06("Gerenciar perfil")
+            UC07("Criar link")
+            UC08("Editar link")
+            UC09("Excluir link")
+            UC10("Reordenar links")
+            UC11("Visualizar analytics")
+        end
+    end
+
+    V --> UC01
+    V --> UC02
+
+    UA --> UC03
+    UA --> UC04
+    UA --> UC05
+    UA --> UC06
+    UA --> UC07
+    UA --> UC08
+    UA --> UC09
+    UA --> UC10
+    UA --> UC11
+
+    UC06 -.->|<<include>>| UC04
+    UC07 -.->|<<include>>| UC04
+    UC08 -.->|<<include>>| UC04
+    UC09 -.->|<<include>>| UC04
+    UC10 -.->|<<include>>| UC04
+    UC11 -.->|<<include>>| UC04
+    UC04 -.->|<<extend>>| UC03
+```
+
+### Atores
+
+| Ator | Descrição |
 |---|---|
-| Diagrama de classes | [`diagrama-classes.drawio`](diagrama-classes.drawio) |
-| Diagrama de casos de uso | [`diagrama-casos-uso.drawio`](diagrama-casos-uso.drawio) |
+| **Visitante** | Usuário não autenticado que navega por perfis públicos |
+| **Usuário Autenticado** | Usuário registrado e logado que gerencia seu perfil e links |
+
+### Casos de uso
+
+| # | Caso de uso | Ator primário | Descrição |
+|---|---|---|---|
+| UC01 | Visualizar perfil público | Visitante | Acessa a página pública de um usuário via `/:slug` |
+| UC02 | Clicar em link | Visitante | Registra um clique em um link da página pública |
+| UC03 | Registrar conta | Usuário Autenticado | Cria uma nova conta (email + senha + slug) |
+| UC04 | Fazer login | Usuário Autenticado | Autentica-se no sistema e recebe um token JWT |
+| UC05 | Fazer logout | Usuário Autenticado | Encerra a sessão atual |
+| UC06 | Gerenciar perfil | Usuário Autenticado | Altera dados do perfil (nome, bio, avatar, tema) |
+| UC07 | Criar link | Usuário Autenticado | Adiciona um novo link ao perfil |
+| UC08 | Editar link | Usuário Autenticado | Altera título ou URL de um link existente |
+| UC09 | Excluir link | Usuário Autenticado | Remove um link e seus registros de clique |
+| UC10 | Reordenar links | Usuário Autenticado | Altera a ordem de exibição dos links via drag-and-drop |
+| UC11 | Visualizar analytics | Usuário Autenticado | Consulta estatísticas de cliques dos links |
+
+### Notações
+
+- `<include>` — o caso de uso base sempre executa o caso incluído
+- `<extend>` — o caso de uso base pode, opcionalmente, estender-se para outro
+- As linhas tracejadas representam relacionamentos de inclusão/extensão (UML)
 
 ---
 
@@ -120,8 +257,8 @@ Os diagramas UML estão disponíveis como arquivos editáveis do Draw.io:
 | POST | `/auth/logout` | — | — | — |
 | GET | `/users/me` | JWT | `user.findUnique` | User (leitura) |
 | PUT | `/users/me` | JWT | `user.update` | User |
-| GET | `/users/:slug` | — | `user.findUnique` | User (leitura) |
 | POST | `/upload` | JWT | — (multer) | filesystem |
+| GET | `/users/:slug` | — | `user.findUnique` | User (leitura) |
 | POST | `/links` | JWT | `link.create` | Link |
 | GET | `/links` | — | `link.findMany` | Link (leitura) |
 | GET | `/links/public/:slug` | — | `user.findUnique` + `link.findMany` | User, Link (leitura) |

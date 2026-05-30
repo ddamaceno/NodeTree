@@ -15,41 +15,46 @@ NodeTree persiste estado em um banco PostgreSQL gerenciado via Prisma ORM. O sch
 ## Diagrama ER
 
 ```mermaid
-erDiagram
-    USERS {
-        uuid id PK "gen_random_uuid()"
-        text email UK "NOT NULL"
-        text password "bcrypt hash"
-        text slug UK "nullable, chave pública"
-        text display_name "nullable"
-        text bio "nullable"
-        text location "nullable"
-        text avatar "nullable"
-        text message_to_readers "nullable"
-        text theme "DEFAULT 'light'"
-        timestamptz created_at "DEFAULT now()"
-        timestamptz updated_at "auto"
-    }
-    LINKS {
-        uuid id PK "gen_random_uuid()"
-        text title "NOT NULL"
-        text url "NOT NULL"
-        text description "nullable"
-        text image "nullable"
-        int order "DEFAULT 0"
-        int clicks "DEFAULT 0"
-        uuid user_id FK "NOT NULL"
-        timestamptz created_at "DEFAULT now()"
-        timestamptz updated_at "auto"
-    }
-    CLICKS {
-        uuid id PK "gen_random_uuid()"
-        uuid link_id FK "NOT NULL"
-        timestamptz clicked_at "DEFAULT now()"
+classDiagram
+    class User {
+        <<Entity>>
+        +UUID id PK
+        +String email UK
+        +String password
+        +String? slug UK
+        +String? displayName
+        +String? bio
+        +String? location
+        +String? avatar
+        +String? messageToReaders
+        +String theme
+        +DateTime createdAt
+        +DateTime updatedAt
     }
 
-    USERS ||--o{ LINKS : owns
-    LINKS ||--o{ CLICKS : logs
+    class Link {
+        <<Entity>>
+        +UUID id PK
+        +String title
+        +String url
+        +String? description
+        +String? image
+        +Int order
+        +Int clicks
+        +UUID userId FK
+        +DateTime createdAt
+        +DateTime updatedAt
+    }
+
+    class Click {
+        <<Entity>>
+        +UUID id PK
+        +UUID linkId FK
+        +DateTime clickedAt
+    }
+
+    User "1" --> "0..*" Link : owns
+    Link "1" --> "0..*" Click : logs
 ```
 
 ## Entidades
@@ -348,18 +353,24 @@ classDiagram
         +string url
         +string? description
         +string? image
-        +int order
-        +int clicks
+        +number order
+        +number clicks
         +string userId
         +Date createdAt
         +Date updatedAt
+    }
+
+    class Click {
+        +string id
+        +string linkId
+        +Date clickedAt
     }
 
     class LinkData {
         +string title
         +string url
         +string userId
-        +int? order
+        +number? order
         +string? description
     }
 
@@ -379,6 +390,7 @@ classDiagram
     }
 
     User "1" --> "*" Link : owns
+    Link "1" --> "*" Click : logs
     LinkData --|> Link : extends
     UpdateLinkData ..> Link : patches
     UpdateUserData ..> User : patches

@@ -32,13 +32,6 @@ classDiagram
         +getClickLogs() Click[]
     }
 
-    class Click {
-        +string id
-        +string linkId
-        +Date clickedAt
-        +getLink() Link
-    }
-
     class LinkData {
         +string title
         +string url
@@ -62,8 +55,15 @@ classDiagram
         +string? messageToReaders
     }
 
+    class Click {
+        +string id
+        +string linkId
+        +Date clickedAt
+        +getLink() Link
+    }
+
     User "1" --> "*" Link : owns
-    Link "1" --> "*" Click : logs
+    Click "*" --> "1" Link : belongs to
     LinkData --|> Link : extends
     UpdateLinkData ..> Link : patches
     UpdateUserData ..> User : patches

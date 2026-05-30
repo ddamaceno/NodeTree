@@ -32,29 +32,6 @@ classDiagram
         +getClickLogs() Click[]
     }
 
-    class LinkData {
-        +string title
-        +string url
-        +string userId
-        +int? order
-        +string? description
-    }
-
-    class UpdateLinkData {
-        +string? title
-        +string? url
-        +string? description
-    }
-
-    class UpdateUserData {
-        +string? displayName
-        +string? bio
-        +string? location
-        +string? avatar
-        +string? theme
-        +string? messageToReaders
-    }
-
     class Click {
         +string id
         +string linkId
@@ -64,9 +41,6 @@ classDiagram
 
     User "1" --> "*" Link : owns
     Click "*" --> "1" Link : belongs to
-    LinkData --|> Link : extends
-    UpdateLinkData ..> Link : patches
-    UpdateUserData ..> User : patches
 ```
 
 Os tipos estão definidos em dois locais:

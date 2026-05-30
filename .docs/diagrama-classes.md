@@ -1,72 +1,64 @@
-# Diagrama de Classes — NodeTree
+# Diagrama de classes TypeScript
 
 ```mermaid
----
-title: Diagrama de Classes — NodeTree
----
 classDiagram
     class User {
-        <<Entity>>
-        + id: UUID
-        + email: String
-        + password: String
-        + slug: String[0..1]
-        + displayName: String[0..1]
-        + bio: String[0..1]
-        + location: String[0..1]
-        + avatar: String[0..1]
-        + messageToReaders: String[0..1]
-        + theme: String
-        + createdAt: DateTime
-        + updatedAt: DateTime
+        +string id
+        +string email
+        +string? slug
+        +string? displayName
+        +string? bio
+        +string? location
+        +string? avatar
+        +string? messageToReaders
+        +string theme
+        +Date createdAt
+        +Date updatedAt
     }
 
     class Link {
-        <<Entity>>
-        + id: UUID
-        + title: String
-        + url: String
-        + description: String[0..1]
-        + image: String[0..1]
-        + order: Integer
-        + clicks: Integer
-        + userId: UUID
-        + createdAt: DateTime
-        + updatedAt: DateTime
+        +string id
+        +string title
+        +string url
+        +string? description
+        +string? image
+        +int order
+        +int clicks
+        +string userId
+        +Date createdAt
+        +Date updatedAt
     }
 
-    class Click {
-        <<Entity>>
-        + id: UUID
-        + linkId: UUID
-        + clickedAt: DateTime
+    class LinkData {
+        +string title
+        +string url
+        +string userId
+        +int? order
+        +string? description
     }
 
-    User "1" --> "0..*" Link : possui
-    Link "1" --> "0..*" Click : registra
+    class UpdateLinkData {
+        +string? title
+        +string? url
+        +string? description
+    }
+
+    class UpdateUserData {
+        +string? displayName
+        +string? bio
+        +string? location
+        +string? avatar
+        +string? theme
+        +string? messageToReaders
+    }
+
+    User "1" --> "*" Link : owns
+    LinkData --|> Link : extends
+    UpdateLinkData ..> Link : patches
+    UpdateUserData ..> User : patches
 ```
 
-## Notações
+Os tipos estão definidos em dois locais:
 
-| Símbolo | Significado |
-|---|---|
-| `+` | Visibilidade pública (UML) |
-| `<<Entity>>` | Entidade persistente no banco de dados |
-| `UUID`, `String`, `Integer`, `DateTime` | Tipos dos atributos |
-| `[0..1]` | Atributo opcional (nullable) |
-| `1 → 0..*` | Relação um para muitos (agregação) |
-
-## Mapeamento para o banco
-
-| Classe | Tabela |
-|---|---|
-| `User` | `users` |
-| `Link` | `links` |
-| `Click` | `clicks` |
-
-### Chaves estrangeiras
-
-| Origem | Destino | Deleção em cascata |
-|---|---|---|
-| `links.user_id` → `users.id` | `Link.userId` → `User.id` | Sim |
-| `clicks.link_id` → `links.id` | `Click.linkId` → `Link.id` | Sim |
+- **`shared/types/index.ts`** — interfaces `User` e `Link` (compartilhadas entre frontend e backend, sem dependências)
+- **`client/src/services/api.ts`** — interfaces `LinkData`, `UpdateLinkData`, `UpdateUserData` (específicas do cliente) e redefinições de `Link` e `User` com tipos serializados (string para Date)

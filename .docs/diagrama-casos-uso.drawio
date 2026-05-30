@@ -1,0 +1,224 @@
+<mxGraphModel dx="1408" dy="773" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+
+    <!-- System Boundary -->
+    <mxCell id="system-boundary" value="NodeTree" style="shape=umlBoundary;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f5f5f5;fontColor=#000000;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="240" y="40" width="680" height="720" as="geometry"/>
+    </mxCell>
+
+    <!-- Actors -->
+    <mxCell id="actor-visitor" value="Visitante" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;html=1;strokeColor=#000000;fillColor=#ffffff;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="90" y="120" width="70" height="100" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="actor-user" value="Usuário&lt;br&gt;Autenticado" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;html=1;strokeColor=#000000;fillColor=#ffffff;fontColor=#000000;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="90" y="360" width="70" height="100" as="geometry"/>
+    </mxCell>
+
+    <!-- Use Cases - Visitor -->
+    <mxCell id="uc01" value="Visualizar&lt;br&gt;perfil público" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#e8f4f8;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="320" y="100" width="140" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="uc02" value="Clicar&lt;br&gt;em link" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#e8f4f8;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="320" y="200" width="140" height="60" as="geometry"/>
+    </mxCell>
+
+    <!-- Use Cases - Auth -->
+    <mxCell id="uc03" value="Registrar&lt;br&gt;conta" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f0e6f6;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="320" y="340" width="140" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="uc04" value="Fazer&lt;br&gt;login" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f0e6f6;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="320" y="440" width="140" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="uc05" value="Fazer&lt;br&gt;logout" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f0e6f6;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="320" y="540" width="140" height="60" as="geometry"/>
+    </mxCell>
+
+    <!-- Use Cases - Gerenciamento -->
+    <mxCell id="uc06" value="Gerenciar&lt;br&gt;perfil" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f6f0e0;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="520" y="340" width="140" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="uc07" value="Criar&lt;br&gt;link" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f6f0e0;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="520" y="440" width="140" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="uc08" value="Editar&lt;br&gt;link" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f6f0e0;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="520" y="540" width="140" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="uc09" value="Excluir&lt;br&gt;link" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f6f0e0;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="520" y="640" width="140" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="uc10" value="Reordenar&lt;br&gt;links" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f6f0e0;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="720" y="340" width="140" height="60" as="geometry"/>
+    </mxCell>
+
+    <mxCell id="uc11" value="Visualizar&lt;br&gt;analytics" style="ellipse;whiteSpace=wrap;html=1;strokeColor=#000000;fillColor=#f6f0e0;fontColor=#000000;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="720" y="440" width="140" height="60" as="geometry"/>
+    </mxCell>
+
+    <!-- Actor to Visitor Use Cases -->
+    <mxCell id="edge-visitor-uc01" value="" style="endArrow=none;html=1;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1" source="actor-visitor" target="uc01">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <mxPoint x="160" y="170" as="sourcePoint"/>
+        <mxPoint x="320" y="130" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="edge-visitor-uc02" value="" style="endArrow=none;html=1;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1" source="actor-visitor" target="uc02">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <mxPoint x="160" y="170" as="sourcePoint"/>
+        <mxPoint x="320" y="230" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Actor to Auth Use Cases -->
+    <mxCell id="edge-user-uc03" value="" style="endArrow=none;html=1;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1" source="actor-user" target="uc03">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <mxPoint x="160" y="410" as="sourcePoint"/>
+        <mxPoint x="320" y="370" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="edge-user-uc04" value="" style="endArrow=none;html=1;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1" source="actor-user" target="uc04">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <mxPoint x="160" y="410" as="sourcePoint"/>
+        <mxPoint x="320" y="470" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="edge-user-uc05" value="" style="endArrow=none;html=1;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1" source="actor-user" target="uc05">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <mxPoint x="160" y="410" as="sourcePoint"/>
+        <mxPoint x="320" y="570" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Actor to Management Use Cases -->
+    <mxCell id="edge-user-uc06" value="" style="endArrow=none;html=1;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1" source="actor-user" target="uc06">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <mxPoint x="160" y="410" as="sourcePoint"/>
+        <mxPoint x="520" y="370" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="edge-user-uc07" value="" style="endArrow=none;html=1;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1" source="actor-user" target="uc07">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <mxPoint x="160" y="410" as="sourcePoint"/>
+        <mxPoint x="520" y="470" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="edge-user-uc08" value="" style="endArrow=none;html=1;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1" source="actor-user" target="uc08">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <mxPoint x="160" y="410" as="sourcePoint"/>
+        <mxPoint x="520" y="570" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="edge-user-uc09" value="" style="endArrow=none;html=1;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1" source="actor-user" target="uc09">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <mxPoint x="160" y="410" as="sourcePoint"/>
+        <mxPoint x="520" y="670" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="edge-user-uc10" value="" style="endArrow=none;html=1;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1" source="actor-user" target="uc10">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <mxPoint x="160" y="410" as="sourcePoint"/>
+        <mxPoint x="720" y="370" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="edge-user-uc11" value="" style="endArrow=none;html=1;strokeColor=#000000;fontColor=#000000;" edge="1" parent="1" source="actor-user" target="uc11">
+      <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <mxPoint x="160" y="410" as="sourcePoint"/>
+        <mxPoint x="720" y="470" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Include: Login necessário para ações protegidas -->
+    <mxCell id="include-uc06" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;startArrow=none;edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#000000;fontColor=#000000;dashed=1;" edge="1" parent="1" source="uc06" target="uc04">
+      <mxGeometry x="-0.5652" y="10" relative="1" as="geometry">
+        <mxPoint x="520" y="370" as="sourcePoint"/>
+        <mxPoint x="460" y="470" as="targetPoint"/>
+        <Array as="points">
+          <mxPoint x="460" y="370"/>
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="include-uc07" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;startArrow=none;edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#000000;fontColor=#000000;dashed=1;" edge="1" parent="1" source="uc07" target="uc04">
+      <mxGeometry x="-0.5652" y="10" relative="1" as="geometry">
+        <mxPoint x="520" y="470" as="sourcePoint"/>
+        <mxPoint x="460" y="470" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="include-uc08" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;startArrow=none;edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#000000;fontColor=#000000;dashed=1;" edge="1" parent="1" source="uc08" target="uc04">
+      <mxGeometry x="-0.5652" y="10" relative="1" as="geometry">
+        <mxPoint x="520" y="570" as="sourcePoint"/>
+        <mxPoint x="460" y="470" as="targetPoint"/>
+        <Array as="points">
+          <mxPoint x="460" y="570"/>
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="include-uc09" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;startArrow=none;edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#000000;fontColor=#000000;dashed=1;" edge="1" parent="1" source="uc09" target="uc04">
+      <mxGeometry x="-0.5652" y="10" relative="1" as="geometry">
+        <mxPoint x="520" y="670" as="sourcePoint"/>
+        <mxPoint x="460" y="470" as="targetPoint"/>
+        <Array as="points">
+          <mxPoint x="460" y="670"/>
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="include-uc10" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;startArrow=none;edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#000000;fontColor=#000000;dashed=1;" edge="1" parent="1" source="uc10" target="uc04">
+      <mxGeometry x="-0.5652" y="10" relative="1" as="geometry">
+        <mxPoint x="720" y="370" as="sourcePoint"/>
+        <mxPoint x="460" y="470" as="targetPoint"/>
+        <Array as="points">
+          <mxPoint x="460" y="370"/>
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="include-uc11" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;startArrow=none;edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#000000;fontColor=#000000;dashed=1;" edge="1" parent="1" source="uc11" target="uc04">
+      <mxGeometry x="-0.5652" y="10" relative="1" as="geometry">
+        <mxPoint x="720" y="470" as="sourcePoint"/>
+        <mxPoint x="460" y="470" as="targetPoint"/>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Extend: Gerenciar perfil pode incluir upload de avatar -->
+    <mxCell id="extend-profile" value="&amp;lt;&amp;lt;extend&amp;gt;&amp;gt;" style="endArrow=open;endSize=12;startArrow=none;edgeStyle=orthogonalEdgeStyle;html=1;strokeColor=#000000;fontColor=#000000;dashed=1;" edge="1" parent="1" source="uc06" target="uc02">
+      <mxGeometry x="-0.5652" y="10" relative="1" as="geometry">
+        <mxPoint x="520" y="310" as="sourcePoint"/>
+        <mxPoint x="460" y="230" as="targetPoint"/>
+        <Array as="points">
+          <mxPoint x="460" y="310"/>
+          <mxPoint x="460" y="230"/>
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Title -->
+    <mxCell id="title" value="&lt;b&gt;Diagrama de Casos de Uso - NodeTree&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontColor=#000000;fontSize=18;" vertex="1" parent="1">
+      <mxGeometry x="350" y="6" width="300" height="30" as="geometry"/>
+    </mxCell>
+
+    <!-- Legend -->
+    <mxCell id="legend" value="&lt;b&gt;Legenda&lt;/b&gt;&lt;hr&gt;🧑 Ator (usuário do sistema)&lt;br&gt;⚪ Caso de uso&lt;br&gt;⟶ Relacionamento (comunicação)&lt;br&gt;&amp;lt;&amp;lt;include&amp;gt;&amp;gt; Inclusão obrigatória&lt;br&gt;&amp;lt;&amp;lt;extend&amp;gt;&amp;gt; Extensão opcional" style="html=1;strokeColor=#000000;fillColor=#ffffff;fontColor=#000000;align=left;spacingLeft=10;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="90" y="660" width="300" height="110" as="geometry"/>
+    </mxCell>
+  </root>
+</mxGraphModel>

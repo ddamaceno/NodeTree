@@ -14,6 +14,7 @@ classDiagram
         +string theme
         +Date createdAt
         +Date updatedAt
+        +getLinks() Link[]
     }
 
     class Link {
@@ -27,6 +28,7 @@ classDiagram
         +string userId
         +Date createdAt
         +Date updatedAt
+        +getUser() User
     }
 
     class LinkData {

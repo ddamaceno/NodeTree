@@ -29,6 +29,14 @@ classDiagram
         +Date createdAt
         +Date updatedAt
         +getUser() User
+        +getClickLogs() Click[]
+    }
+
+    class Click {
+        +string id
+        +string linkId
+        +Date clickedAt
+        +getLink() Link
     }
 
     class LinkData {
@@ -55,6 +63,7 @@ classDiagram
     }
 
     User "1" --> "*" Link : owns
+    Link "1" --> "*" Click : logs
     LinkData --|> Link : extends
     UpdateLinkData ..> Link : patches
     UpdateUserData ..> User : patches

@@ -139,17 +139,8 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 assisted_workflow/
-Entregas/~$1 - NodeTree.docx
-.gitignore
-Entregas/Videos/ AC1.mp4
-.gitignore
-Entregas/Words/AC1 - NodeTree.docx
-Entregas/PDFs/AC1 - NodeTree.pdf
+Entregas/
 .DS_Store
-Entregas/.DS_Store
-Entregas/PDFs/AC2 - NodeTree.pdf
-Entregas/Videos/AC2.mp4
-Entregas/Words/AC2 - NodeTree.docx
 server/uploads/1775008920398-973834254.jpeg
 server/uploads/1775008945534-707672152.jpg
 server/uploads/1775010129811-810071529.avif

@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email            String   @unique
+  password         String
+  slug             String?  @unique
+  displayName      String?  @map("display_name")
+  bio              String?
+  location         String?
+  avatar           String?
+  messageToReaders String?  @map("message_to_readers")
+  theme            String   @default("light")
+  createdAt        DateTime @default(now()) @db.Timestamptz
+  updatedAt        DateTime @updatedAt @db.Timestamptz
+  links            Link[]
+
+  @@map("users")
+}
+
+model Link {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String
+  url         String
+  description String?
+  image       String?
+  order       Int      @default(0)
+  clicks      Int      @default(0)
+  userId      String   @map("user_id") @db.Uuid
+  createdAt   DateTime @default(now()) @db.Timestamptz
+  updatedAt   DateTime @updatedAt @db.Timestamptz
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  clickLogs   Click[]
+
+  @@map("links")
+}
+
+model Click {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  linkId    String   @map("link_id") @db.Uuid
+  link      Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  clickedAt DateTime @default(now()) @db.Timestamptz
+
+  @@map("clicks")
+}
